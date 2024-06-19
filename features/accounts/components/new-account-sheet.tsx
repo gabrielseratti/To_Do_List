@@ -29,10 +29,10 @@ export const NewAccountSheet = () => {
             <SheetContent className="space-y-4">
                 <SheetHeader>
                     <SheetTitle>
-                        New Account
+                        Nova Lista
                     </SheetTitle>
                     <SheetDescription>
-                        Create a new account to track your transactions.
+                        Crie uma nova lista com suas tarefas.
                     </SheetDescription>
                 </SheetHeader>
                 <AccountForm 

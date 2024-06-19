@@ -48,23 +48,23 @@ export const AccountForm = ({
                 <FormField name="name" control={form.control} render={({ field }) => (
                     <FormItem>
                         <FormLabel>
-                            Name
+                            Nome
                         </FormLabel>
                         <FormControl>
                             <Input 
                             disabled={disabled} 
-                            placeholder="e.g. Cash, Bank, Credit Card" 
+                            placeholder="ex. Dia, Evento, Intervalo" 
                             {...field} />
                         </FormControl>
                     </FormItem>
                 )} />
                 <Button className="w-full" disabled={disabled} >
-                    {id ? "Save changes" : "Create account"}
+                    {id ? "Save changes" : "Criar lista"}
                 </Button>
                 {!!id && (
                     <Button type="button" disabled={disabled} onClick={handleDelete} className="w-full" variant={"outline"}>
                         <Trash className="size-4 mr-2" />
-                        Delete Account
+                        Deletar lista
                     </Button>
                 )
                 }
