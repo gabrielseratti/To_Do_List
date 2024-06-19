@@ -7,7 +7,7 @@ import { InferRequestType, InferResponseType } from "hono";
 type ResponseType = InferResponseType<typeof client.api.accounts.$post>;
 type RequestType = InferRequestType<typeof client.api.accounts.$post>["json"];
 
-export const useCreateAccount = () => {
+export const useCreateList = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation<
@@ -20,11 +20,11 @@ export const useCreateAccount = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Account created")
+            toast.success("List created")
             queryClient.invalidateQueries({ queryKey: ["accounts"] })
         },
         onError: () => {
-            toast.error("Failed to create account")
+            toast.error("Failed to create list")
         },
     });
 

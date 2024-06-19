@@ -3,7 +3,7 @@ import { useNewList } from "../hooks/use-new-list";
 import { ListForm } from "./list-form";
 import { z } from "zod";
 import { insertAccountSchema } from "@/db/schema";
-import { useCreateAccount } from "../api/use-create-account";
+import { useCreateList } from "../api/use-create-list";
 
 const formSchema = insertAccountSchema.pick({
     name: true,
@@ -11,10 +11,10 @@ const formSchema = insertAccountSchema.pick({
 
 type FormValues = z.input<typeof formSchema>;
 
-export const NewAccountSheet = () => {
+export const NewListSheet = () => {
     const { isOpen, onClose } = useNewList();
 
-    const mutation = useCreateAccount();
+    const mutation = useCreateList();
 
     const onSubmit = (values: FormValues) => {
         mutation.mutate(values, {
