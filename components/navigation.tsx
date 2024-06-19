@@ -15,7 +15,7 @@ const routes = [
         label: "Página principal",
     },
     {
-        href: "/accounts",
+        href: "/lists",
         label: "Lista de tarefas",
     },
     {

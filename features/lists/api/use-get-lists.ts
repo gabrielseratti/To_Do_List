@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useGetLists = () => {
     const query = useQuery({
-        queryKey: ["accounts"],
+        queryKey: ["lists"],
         queryFn: async () => {
-            const response = await client.api.accounts.$get();
+            const response = await client.api.lists.$get();
 
             if (!response.ok) {
-                throw new Error("Failed to fetch accounts");
+                throw new Error("Failed to fetch lists");
             }
 
             const { data } = await response.json();

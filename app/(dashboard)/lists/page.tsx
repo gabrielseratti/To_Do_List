@@ -10,15 +10,21 @@ import {
 import { Loader2, Plus } from "lucide-react";
 import { columns } from "./columns";
 import { DataTable } from "@/components/data-table";
-import { useGetLists } from "@/features/accounts/api/use-get-lists";
-import { useNewList } from "@/features/accounts/hooks/use-new-list";
+import { useGetLists } from "@/features/lists/api/use-get-lists";
+import { useNewList } from "@/features/lists/hooks/use-new-list";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useBulkDeleteLists } from "@/features/lists/api/use-bulk-delete";
 
 
-const AccountsPage = () => {
-    const newAccount = useNewList();
+const ListsPage = () => {
+    const newList = useNewList();
+    const deleteLists = useBulkDeleteLists()
     const listsQuery = useGetLists();
     const lists = listsQuery.data || [];
+
+    const isDisabled = 
+      listsQuery.isLoading ||
+      deleteLists.isPending;
 
     if (listsQuery.isLoading) {
       return (
@@ -42,9 +48,9 @@ const AccountsPage = () => {
             <Card className="border-none drop-shadow-sm">
                 <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
                     <CardTitle className="text-xl line-clamp-1">
-                        Tarefas
+                        Página de Tarefas
                     </CardTitle>
-                    <Button onClick={newAccount.onOpen} size={"sm"}>
+                    <Button onClick={newList.onOpen} size={"sm"}>
                         <Plus className="size-4 mr-2"/>
                         Adicionar nova
                     </Button>
@@ -54,12 +60,15 @@ const AccountsPage = () => {
                     filterKey="email"
                     columns={columns} 
                     data={lists} 
-                    onDelete={() => {}}
-                    disabled={false} />    
+                    onDelete={(row) => {
+                      const ids = row.map((r) => r.original.id);
+                      deleteLists.mutate({ ids });
+                    }}
+                    disabled={isDisabled} />    
                 </CardContent>
             </Card>
         </div>
      );
 }
  
-export default AccountsPage;
+export default ListsPage;

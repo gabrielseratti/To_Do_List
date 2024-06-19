@@ -1,4 +1,4 @@
-import accounts from './accounts'
+import lists from './lists'
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel'
@@ -17,9 +17,10 @@ app.onError((err, c) => {
 })
 
 const routes = app
-    .route('/accounts', accounts);
+    .route('/lists', lists);
 
 export const GET = handle(app)
 export const POST = handle(app)
+export const PATCH = handle(app)
 
 export type AppType = typeof routes;

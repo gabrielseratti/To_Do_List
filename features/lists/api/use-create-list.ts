@@ -4,8 +4,8 @@ import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
-type ResponseType = InferResponseType<typeof client.api.accounts.$post>;
-type RequestType = InferRequestType<typeof client.api.accounts.$post>["json"];
+type ResponseType = InferResponseType<typeof client.api.lists.$post>;
+type RequestType = InferRequestType<typeof client.api.lists.$post>["json"];
 
 export const useCreateList = () => {
     const queryClient = useQueryClient();
@@ -16,15 +16,15 @@ export const useCreateList = () => {
         RequestType
     >({
         mutationFn: async (json) => {
-            const response = await client.api.accounts.$post({ json });
+            const response = await client.api.lists.$post({ json });
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("List created")
-            queryClient.invalidateQueries({ queryKey: ["accounts"] })
+            toast.success("Lista criada")
+            queryClient.invalidateQueries({ queryKey: ["lists"] })
         },
         onError: () => {
-            toast.error("Failed to create list")
+            toast.error("Falha ao criar listas")
         },
     });
 

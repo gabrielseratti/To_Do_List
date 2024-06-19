@@ -2,10 +2,10 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { useNewList } from "../hooks/use-new-list";
 import { ListForm } from "./list-form";
 import { z } from "zod";
-import { insertAccountSchema } from "@/db/schema";
+import { insertListSchema } from "@/db/schema";
 import { useCreateList } from "../api/use-create-list";
 
-const formSchema = insertAccountSchema.pick({
+const formSchema = insertListSchema.pick({
     name: true,
 });
 
