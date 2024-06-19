@@ -13,7 +13,6 @@ const formSchema = insertAccountSchema.pick({
 
 type FormValues = z.input<typeof formSchema>;
 
-
 type Props = {
     id?: string;
     defaultValues?: FormValues;
@@ -22,7 +21,7 @@ type Props = {
     disabled?: boolean;
 };
 
-export const AccountForm = ({
+export const ListForm = ({
     id,
     defaultValues,
     onSubmit,
@@ -53,7 +52,7 @@ export const AccountForm = ({
                         <FormControl>
                             <Input 
                             disabled={disabled} 
-                            placeholder="ex. Dia, Evento, Intervalo" 
+                            placeholder="ex. Dia, Evento, Intervalo de Tempo" 
                             {...field} />
                         </FormControl>
                     </FormItem>

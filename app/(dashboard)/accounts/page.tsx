@@ -39,7 +39,7 @@ import { DataTable } from "@/components/data-table";
   ];
 
 const AccountsPage = () => {
-    // const newAccount = useNewAccount();
+    // const newAccount = useNewList();
 
     return ( 
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">

@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { useNewAccount } from "../hooks/use-new-account";
-import { AccountForm } from "./account-form";
+import { useNewList } from "../hooks/use-new-list";
+import { ListForm } from "./list-form";
 import { z } from "zod";
 import { insertAccountSchema } from "@/db/schema";
 import { useCreateAccount } from "../api/use-create-account";
@@ -12,7 +12,7 @@ const formSchema = insertAccountSchema.pick({
 type FormValues = z.input<typeof formSchema>;
 
 export const NewAccountSheet = () => {
-    const { isOpen, onClose } = useNewAccount();
+    const { isOpen, onClose } = useNewList();
 
     const mutation = useCreateAccount();
 
@@ -35,7 +35,7 @@ export const NewAccountSheet = () => {
                         Crie uma nova lista com suas tarefas.
                     </SheetDescription>
                 </SheetHeader>
-                <AccountForm 
+                <ListForm 
                 onSubmit={onSubmit} 
                 disabled={mutation.isPending} 
                 defaultValues={{
