@@ -9,24 +9,24 @@ import {
 } from "@/components/ui/card";
 import { Loader2, Plus } from "lucide-react";
 import { columns } from "./columns";
-import { DataTable } from "@/components/data-table";
-import { useGetLists } from "@/features/lists/api/use-get-lists";
-import { useNewList } from "@/features/lists/hooks/use-new-list";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteLists } from "@/features/lists/api/use-bulk-delete";
+import { DataTable } from "@/components/data-table"; 
+import { Skeleton } from "@/components/ui/skeleton"; 
+import { useNewTask } from "@/features/tasks/hooks/use-new-task";
+import { useGetTasks } from "@/features/tasks/api/use-get-tasks";
+import { useBulkDeleteTasks } from "@/features/tasks/api/use-bulk-delete-tasks";
 
 
-const ListsPage = () => {
-    const newList = useNewList();
-    const deleteLists = useBulkDeleteLists()
-    const listsQuery = useGetLists();
-    const lists = listsQuery.data || [];
+const TasksPage = () => {
+    const newTask = useNewTask();
+    const deleteTasks = useBulkDeleteTasks()
+    const tasksQuery = useGetTasks();
+    const tasks = tasksQuery.data || [];
 
     const isDisabled = 
-      listsQuery.isLoading ||
-      deleteLists.isPending;
+      tasksQuery.isLoading ||
+      deleteTasks.isPending;
 
-    if (listsQuery.isLoading) {
+    if (tasksQuery.isLoading) {
       return (
         <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
           <Card className="border-none drop-shadow-sm">
@@ -48,9 +48,9 @@ const ListsPage = () => {
             <Card className="border-none drop-shadow-sm">
                 <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
                     <CardTitle className="text-xl line-clamp-1">
-                        Página de Listas
+                        Histórico de Tarefas
                     </CardTitle>
-                    <Button onClick={newList.onOpen} size={"sm"}>
+                    <Button onClick={newTask.onOpen} size={"sm"}>
                         <Plus className="size-4 mr-2"/>
                         Adicionar nova
                     </Button>
@@ -59,10 +59,10 @@ const ListsPage = () => {
                     <DataTable 
                     filterKey="name"
                     columns={columns} 
-                    data={lists} 
+                    data={tasks} 
                     onDelete={(row) => {
                       const ids = row.map((r) => r.original.id);
-                      deleteLists.mutate({ ids });
+                      deleteTasks.mutate({ ids });
                     }}
                     disabled={isDisabled} />    
                 </CardContent>
@@ -71,4 +71,4 @@ const ListsPage = () => {
      );
 }
  
-export default ListsPage;
+export default TasksPage;

@@ -4,7 +4,6 @@ import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
-
 type ResponseType = InferResponseType<typeof client.api.tasks['bulk-create']['$post']>;
 type RequestType = InferRequestType<typeof client.api.tasks['bulk-create']['$post']>["json"];
 

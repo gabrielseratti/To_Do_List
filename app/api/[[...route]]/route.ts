@@ -1,9 +1,9 @@
-import lists from './lists'
 import { Hono } from 'hono'
+
+import lists from './lists'
+import tasks from "./tasks"
 import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel'
-import tasks from "./tasks"
-
 
 export const runtime = 'edge';
 
