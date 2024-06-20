@@ -128,8 +128,83 @@ const app = new Hono()
             z.object({
                 id: z.string().optional(),
             }),
-    ),
+        ),
+        zValidator(
+            'json',
+            insertListSchema.pick({
+                name: true,
+            })
+        ),
+        async (c) => {
+            const auth = getAuth(c);
+            const { id } = c.req.valid('param');
+            const values = c.req.valid('json');
 
+            if (!id) {
+                return c.json({ error: 'missing id' }, 400);
+            }
+
+            if (!auth?.userId) {
+                return c.json({ error: 'Unauthorized' }, 401);
+            }
+
+            const [data] = await db
+                .update(lists)
+                .set(values)
+                .where(
+                    and(
+                        eq(lists.userId, auth.userId),
+                        eq(lists.id, id),
+                    ),
+                )
+                .returning();
+            
+            if (!data) {
+                return c.json({ error: "Not found" }, 404);
+            }
+
+            return c.json ({ data });
+        }
+    )
+    .delete(
+        '/:id',
+        clerkMiddleware(),
+        zValidator(
+            'param',
+            z.object({
+                id: z.string().optional(),
+            }),
+        ),
+        async (c) => {
+            const auth = getAuth(c);
+            const { id } = c.req.valid('param');
+
+            if (!id) {
+                return c.json({ error: 'Missing id' }, 400);
+            }
+
+            if (!auth?.userId) {
+                return c.json({ error: 'Unauthorized' }, 401);
+            }
+
+            const [data] = await db
+                .delete(lists)
+                .where(
+                    and(
+                        eq(lists.userId, auth.userId),
+                        eq(lists.id, id),
+                    ),
+                )
+                .returning({
+                    id: lists.id,
+                });
+            
+            if (!data) {
+                return c.json({ error: "Not found" }, 404);
+            }
+
+            return c.json ({ data });
+        }
 ); 
 
 app.get('/:id', (c) => c.json(`get ${c.req.param('id')}`))

@@ -57,7 +57,7 @@ const ListsPage = () => {
                 </CardHeader>
                 <CardContent>
                     <DataTable 
-                    filterKey="email"
+                    filterKey="name"
                     columns={columns} 
                     data={lists} 
                     onDelete={(row) => {
