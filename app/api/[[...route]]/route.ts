@@ -2,6 +2,7 @@ import lists from './lists'
 import { Hono } from 'hono'
 import { HTTPException } from 'hono/http-exception';
 import { handle } from 'hono/vercel'
+import tasks from "./tasks"
 
 
 export const runtime = 'edge';
@@ -17,7 +18,8 @@ app.onError((err, c) => {
 })
 
 const routes = app
-    .route('/lists', lists);
+    .route('/lists', lists)
+    .route('/tasks', tasks);
 
 export const GET = handle(app)
 export const POST = handle(app)

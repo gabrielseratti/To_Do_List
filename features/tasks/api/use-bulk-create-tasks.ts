@@ -4,10 +4,11 @@ import { client } from "@/lib/hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { InferRequestType, InferResponseType } from "hono";
 
-type ResponseType = InferResponseType<typeof client.api.lists['bulk-delete']['$post']>;
-type RequestType = InferRequestType<typeof client.api.lists['bulk-delete']['$post']>["json"];
 
-export const useBulkDeleteLists = () => {
+type ResponseType = InferResponseType<typeof client.api.tasks['bulk-create']['$post']>;
+type RequestType = InferRequestType<typeof client.api.tasks['bulk-create']['$post']>["json"];
+
+export const useBulkCreateTasks = () => {
     const queryClient = useQueryClient();
 
     const mutation = useMutation<
@@ -16,15 +17,15 @@ export const useBulkDeleteLists = () => {
         RequestType
     >({
         mutationFn: async (json) => {
-            const response = await client.api.lists['bulk-delete']['$post']({ json })
+            const response = await client.api.tasks['bulk-create']['$post']({ json })
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Listas deletadas")
-            queryClient.invalidateQueries({ queryKey: ["lists"] })
+            toast.success("Listas criadas")
+            queryClient.invalidateQueries({ queryKey: ["tasks"] })
         },
         onError: () => {
-            toast.error("Falha ao deletar listas")
+            toast.error("Falha ao criar listas")
         },
     });
 
