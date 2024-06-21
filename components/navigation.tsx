@@ -7,6 +7,7 @@ import { useMedia } from "react-use";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
 
 
 const routes = [
@@ -62,6 +63,9 @@ export const Navigation = () => {
                                 {route.label}
                             </Button>
                         ))}
+                        <div className="bg-black-500">
+                            <ModeToggle />
+                        </div>
                     </nav>
                 </SheetContent>
             </Sheet>
@@ -78,6 +82,7 @@ export const Navigation = () => {
                     isActive={pathname === route.href}
                 />
             ))}
+            <ModeToggle />
         </nav>
     )
 }

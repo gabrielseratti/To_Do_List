@@ -58,7 +58,7 @@ export const ListForm = ({
                     </FormItem>
                 )} />
                 <Button className="w-full" disabled={disabled} >
-                    {id ? "Save changes" : "Criar lista"}
+                    {id ? "Salvar mudanças" : "Criar lista"}
                 </Button>
                 {!!id && (
                     <Button 

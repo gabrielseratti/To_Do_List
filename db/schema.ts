@@ -4,8 +4,7 @@ import { createInsertSchema } from "drizzle-zod"
 import { z } from "zod";
 
 export const lists = pgTable('lists', {
-    id: text('id').primaryKey(),
-    plaidId: text('plaid_id'),
+    id: text('id').primaryKey(), 
     name: text('name').notNull(),
     userId: text('user_id').notNull(),
 });
@@ -17,9 +16,10 @@ export const listsRelations = relations(lists, ({ many }) => ({
 export const insertListSchema = createInsertSchema(lists);
 
 export const tasks = pgTable('tasks', {
-    id: text('id').primaryKey(),
+    id: text('id').primaryKey(),    
+    name: text('name').notNull(),
     notes: text('notes'),
-    date: timestamp('date', { mode: 'date' }).notNull(),
+    date: timestamp('date', { mode: 'date' }),
     listId: text('list_id').references(() => lists.id, {
         onDelete: "cascade",
     }).notNull(),

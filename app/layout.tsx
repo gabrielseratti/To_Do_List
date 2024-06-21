@@ -5,11 +5,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { QueryProvider } from "@/providers/query-provider";
 import { SheetProvider } from "@/providers/sheet-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/providers/theme.provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Criação de Listas",
+  title: "To/do Lists",
   description: "InventSoftware",
 };
 
@@ -20,12 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body className={inter.className}>
           <QueryProvider>
-            <SheetProvider />
-            <Toaster />
-            {children}
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="discord-theme">
+              <SheetProvider />
+              <Toaster />
+              {children}
+            </ThemeProvider>
           </QueryProvider>
         </body>
       </html>

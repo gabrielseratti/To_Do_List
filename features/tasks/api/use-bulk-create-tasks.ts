@@ -20,11 +20,11 @@ export const useBulkCreateTasks = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Listas criadas")
+            toast.success("Tarefas criadas")
             queryClient.invalidateQueries({ queryKey: ["tasks"] })
         },
         onError: () => {
-            toast.error("Falha ao criar listas")
+            toast.error("Falha ao criar Tarefas")
         },
     });
 

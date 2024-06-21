@@ -11,7 +11,7 @@ export const WelcomeMsg = () => {
                 Bem-vindo de volta{isLoaded ? ", " : " "}{user?.firstName}
             </h2>
             <p className="text-sm lg:text-base text-[#89b6fd]">
-                Estas são suas listas de tarefas
+                Estas são suas tarefas
             </p>
         </div>
     )

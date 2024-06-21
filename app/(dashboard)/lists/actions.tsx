@@ -14,7 +14,7 @@ type Props = {
 export const Actions = ({ id }: Props) => {
     const [ConfirmDialog, confirm] = useConfirm(
         'Tem certeza?',
-        'Você está prestes a deletar um Item da lista.'
+        'Você está prestes a deletar esta lista junto de todas as tarefas.'
     )
 
     const deleteMutation = useDeleteList(id);

@@ -3,7 +3,8 @@
 import { NewListSheet } from "@/features/lists/components/new-list-sheet";
 import { EditListSheet } from "@/features/lists/components/edit-list-sheet";
 import { useMountedState } from "react-use";
-import { NewTaskSheet } from "@/features/tasks/components/new-task-sheet";
+import { NewTaskSheet } from "@/features/tasks/components/new-task-sheet"; 
+import { EditTaskSheet } from "@/features/tasks/components/edit-task-sheet";
 
 export const SheetProvider = () => {
     const isMounted = useMountedState();
@@ -14,7 +15,9 @@ export const SheetProvider = () => {
         <>
             <NewListSheet />
             <EditListSheet />
+
             <NewTaskSheet />
+            <EditTaskSheet />
         </>
-    )
+    );
 }

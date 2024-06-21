@@ -23,6 +23,7 @@ export const useDeleteList = (id?: string) => {
             toast.success("Lista deletada")
             queryClient.invalidateQueries({ queryKey: ["list", { id }] })
             queryClient.invalidateQueries({ queryKey: ["lists"] })
+            queryClient.invalidateQueries({ queryKey: ["tasks"] })
         },
         onError: () => {
             toast.error("Falha ao deletar lista")

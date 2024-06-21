@@ -26,6 +26,7 @@ export const useEditList = (id?: string) => {
             toast.success("Lista atualizada")
             queryClient.invalidateQueries({ queryKey: ["lists", { id }] })
             queryClient.invalidateQueries({ queryKey: ["lists"] })
+            queryClient.invalidateQueries({ queryKey: ["tasks"] })
         },
         onError: () => {
             toast.error("Falha ao atualizar lista")

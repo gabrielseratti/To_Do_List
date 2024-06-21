@@ -32,7 +32,7 @@ export const NewListSheet = () => {
                         Nova Lista
                     </SheetTitle>
                     <SheetDescription>
-                        Crie uma nova lista com suas tarefas.
+                        Crie uma nova lista para suas tarefas.
                     </SheetDescription>
                 </SheetHeader>
                 <ListForm 

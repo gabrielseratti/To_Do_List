@@ -7,9 +7,12 @@ import { Button } from "@/components/ui/button";
 import { insertTaskSchema } from "@/db/schema";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select } from "@/components/select";
+import { DatePicker } from "@/components/date-picker";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-    date: z.coerce.date(),
+    date: z.coerce.date().nullable().optional(),
+    name: z.string(), 
     listId: z.string(),
     notes: z.string().nullable().optional(),
 });
@@ -24,10 +27,10 @@ type ApiFormValues = z.input<typeof apiSchema>;
 type Props = {
     id?: string;
     defaultValues?: FormValues;
-    onSubmit: (values: FormValues) => void;
+    onSubmit: (values: ApiFormValues) => void;
     onDelete?: () => void;
     disabled?: boolean;
-    listOptions: { label: string; value: string;}[];
+    listOptions: { label: string; value: string; }[];
     onCreateList: (name: string) => void;
 };
 
@@ -45,9 +48,8 @@ export const TaskForm = ({
         defaultValues: defaultValues,
     });
 
-    const handleSubmit = (values: FormValues) => {
-        console.log({ values });
-        // onSubmit(values);
+    const handleSubmit = (values: FormValues) => { 
+        onSubmit({...values});
     };
 
     const handleDelete = () => {
@@ -61,13 +63,13 @@ export const TaskForm = ({
                 name="listId" 
                 control={form.control} 
                 render={({ field }) => (
-                    <FormItem>
+                    <FormItem> 
                         <FormLabel>
-                            Listas
+                            Lista
                         </FormLabel>
                         <FormControl>
                             <Select 
-                                placeholder="Seleciona uma lista"
+                                placeholder="Selecione uma lista"
                                 options={listOptions}
                                 onCreate={onCreateList}
                                 value={field.value}
@@ -78,27 +80,52 @@ export const TaskForm = ({
                     </FormItem>
                 )} />
                 <FormField 
-                name="listId" 
+                name="date" 
                 control={form.control} 
                 render={({ field }) => (
-                    <FormItem>
+                    <FormItem> 
                         <FormLabel>
-                            Listas
+                            Data
                         </FormLabel>
                         <FormControl>
-                            <Select 
-                                placeholder="Seleciona uma lista"
-                                options={listOptions}
-                                onCreate={onCreateList}
-                                value={field.value}
+                            <DatePicker 
+                                value={field.value as Date | null} 
                                 onChange={field.onChange}
-                                disabled={disabled}
+                                disabled={false}
+                            />
+                        </FormControl>
+                    </FormItem>
+                )} />
+                <FormField name="name" control={form.control} render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>
+                            Tarefa
+                        </FormLabel>
+                        <FormControl>
+                            <Input 
+                            disabled={disabled} 
+                            placeholder="Adicione uma tarefa" 
+                            {...field} />
+                        </FormControl>
+                    </FormItem>
+                )} />
+                <FormField name="notes" control={form.control} render={({ field }) => (
+                    <FormItem>
+                        <FormLabel>
+                            Notas
+                        </FormLabel>
+                        <FormControl>
+                            <Textarea 
+                                {...field} 
+                                value={field.value ?? ""}
+                                disabled={disabled} 
+                                placeholder="Notas opcionais" 
                             />
                         </FormControl>
                     </FormItem>
                 )} />
                 <Button className="w-full" disabled={disabled} >
-                    {id ? "Save changes" : "Criar lista"}
+                    {id ? "Salvar mudanças" : "Criar tarefa"}
                 </Button>
                 {!!id && (
                     <Button 
@@ -108,7 +135,7 @@ export const TaskForm = ({
                     className="w-full" 
                     variant={"outline"}>
                         <Trash className="size-4 mr-2" />
-                        Deletar lista
+                        Deletar tarefa
                     </Button>
                 )
                 }

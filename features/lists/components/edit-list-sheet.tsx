@@ -66,10 +66,10 @@ export const EditListSheet = () => {
                 <SheetContent className="space-y-4">
                     <SheetHeader>
                         <SheetTitle>
-                            Editar tarefa
+                            Editar Lista
                         </SheetTitle>
                         <SheetDescription>
-                            Editar uma tarefa existente.
+                            Edita o nome da lista existente.
                         </SheetDescription>
                     </SheetHeader>
                     {isLoading

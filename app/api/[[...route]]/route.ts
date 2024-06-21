@@ -1,25 +1,18 @@
 import { Hono } from 'hono'
 
 import lists from './lists'
-import tasks from "./tasks"
-import { HTTPException } from 'hono/http-exception';
+import tasks from './tasks' 
+import summary from './summary' 
 import { handle } from 'hono/vercel'
 
 export const runtime = 'edge';
 
-const app = new Hono().basePath('/api');
-
-app.onError((err, c) => {
-    if (err instanceof HTTPException) {
-        return err.getResponse();
-    }
-
-    return c.json({ error: "Internal error" }, 500)
-})
+const app = new Hono().basePath('/api'); 
 
 const routes = app
     .route('/lists', lists)
-    .route('/tasks', tasks);
+    .route('/tasks', tasks)
+    .route('/summary', summary);
 
 export const GET = handle(app)
 export const POST = handle(app)

@@ -21,11 +21,11 @@ export const useBulkDeleteTasks = () => {
             return await response.json();
         },
         onSuccess: () => {
-            toast.success("Listas deletadas")
+            toast.success("Tarefas deletadas")
             queryClient.invalidateQueries({ queryKey: ["tasks"] })
         },
         onError: () => {
-            toast.error("Falha ao deletar listas")
+            toast.error("Falha ao deletar Tarefas")
         },
     });
 

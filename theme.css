@@ -1,0 +1,17 @@
+/* themes.css */
+:root {
+    --color-background-light: #ffffff;
+    --color-background-dark: #333333; /* Cinza ao invés de preto */
+    --color-text-light: #000000;
+    --color-text-dark: #ffffff;
+  }
+  
+  [data-theme="light"] {
+    --color-background: var(--color-background-light);
+    --color-text: var(--color-text-light);
+  }
+  
+  [data-theme="dark"] {
+    --color-background: var(--color-background-dark);
+    --color-text: var(--color-text-dark);
+  }

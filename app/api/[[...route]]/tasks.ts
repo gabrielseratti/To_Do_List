@@ -1,12 +1,13 @@
-import { db } from '@/db/drizzle';
-import { tasks, insertTaskSchema, lists } from '@/db/schema';
-import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
+import { z } from 'zod';
+import { Hono } from 'hono'
+import { subDays, parse } from 'date-fns';
 import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm';
 import { createId } from "@paralleldrive/cuid2"
-import { Hono } from 'hono'
 import { zValidator } from "@hono/zod-validator"
-import { z } from 'zod';
-import { subDays, parse } from 'date-fns';
+import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
+
+import { db } from '@/db/drizzle';
+import { tasks, insertTaskSchema, lists } from '@/db/schema';
 
 const app = new Hono()
     .get(
@@ -17,7 +18,7 @@ const app = new Hono()
             listId: z.string().optional(),
         })),
         clerkMiddleware(),
-        async (c) => {
+        async (c) => { 
         const auth = getAuth(c);
         const { from, to, listId } = c.req.valid('query');
 
@@ -35,10 +36,12 @@ const app = new Hono()
         const endDate = to
             ? parse(to, 'yyyy-MM-dd', new Date())
             : defaultTo;
+             
 
         const data = await db
             .select({
                 id: tasks.id,
+                name: tasks.name,
                 date: tasks.date,
                 notes: tasks.notes,
                 list: lists.name,
@@ -50,12 +53,11 @@ const app = new Hono()
                 and(
                     listId ? eq(tasks.listId, listId) : undefined,
                     eq(lists.userId, auth.userId),
-                    gte(tasks.date, startDate),
-                    lte(tasks.date, endDate),
+                    // gte(tasks.date, startDate),
+                    // lte(tasks.date, endDate),
                 )
             )
-            .orderBy(desc(tasks.date));
-
+            .orderBy(desc(tasks.date)); 
         return c.json({ data });
     })
     .get(
@@ -79,6 +81,7 @@ const app = new Hono()
             const [data] = await db
             .select({
                 id: tasks.id,
+                name: tasks.name,
                 date: tasks.date,
                 notes: tasks.notes,
                 listId: tasks.listId,
@@ -185,7 +188,7 @@ const app = new Hono()
                     inArray(tasks.id, sql`(select id from ${tasksToDelete})`)
                 )
                 .returning({
-                    id: tasks.id,
+                    id: tasks.id, 
                 })
 
             return c.json({ data });
@@ -286,7 +289,7 @@ const app = new Hono()
                     ),
                 )
                 .returning({
-                    id: tasks.id,
+                    id: tasks.id, 
                 });
             
             if (!data) {

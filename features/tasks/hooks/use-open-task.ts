@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-type OpenListState = {
+type OpenTaskState = {
     id?: string;
     isOpen: boolean;
     onOpen: (id: string) => void;
     onClose: () => void;
 };
 
-export const useOpenList = create<OpenListState>((set) => ({
+export const useOpenTask = create<OpenTaskState>((set) => ({
     id: undefined,
     isOpen: false,
     onOpen: (id: string) => set({ isOpen: true, id }),
