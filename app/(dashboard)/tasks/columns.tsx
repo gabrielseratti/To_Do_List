@@ -59,7 +59,9 @@ export const columns: ColumnDef<ResponseType>[] = [
             {format(date, 'dd MMMM, yyyy')}
           </span>
           :
-          <span></span>
+          <span className="text-sm text-slate-400">
+            Sem data definida.
+          </span>
         )
       )
     }

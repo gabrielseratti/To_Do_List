@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Select } from "@/components/select";
 import { DatePicker } from "@/components/date-picker";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
 
 const formSchema = z.object({
     date: z.coerce.date().nullable().optional(),
@@ -57,7 +58,7 @@ export const TaskForm = ({
     }
 
     return (
-        <Form {...form}>
+        <Form {...form}> 
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 pt-4">
                 <FormField 
                 name="listId" 
@@ -91,7 +92,7 @@ export const TaskForm = ({
                             <DatePicker 
                                 value={field.value as Date | null} 
                                 onChange={field.onChange}
-                                disabled={false}
+                                disabled={disabled}
                             />
                         </FormControl>
                     </FormItem>
