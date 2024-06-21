@@ -39,8 +39,7 @@ export const DatePicker = ({
                     mode="single"
                     selected={value ?? undefined} 
                     onSelect={onChange}
-                    disabled={disabled}
-                    initialFocus 
+                    disabled={disabled} 
                 /> 
             </PopoverContent>
         </Popover>
